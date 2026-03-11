@@ -49,7 +49,7 @@ venv.bak/
 # Cursor IDE & Spec plugins
 # ============================================
 # Plans/drafts are internal process documents, not for publishing
-.cursor/plans/
+.cursor/
 # Spec Story plugin history (internal AI conversation history)
 .specstory/
 .spec-workflow/
