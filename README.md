@@ -12,6 +12,10 @@
   集成多模型适配、智能上下文注入与并行任务执行，让你的终端进化为全能开发助手。
 </p>
 
+<p align="center">
+  <a href="https://fangcircle2-jpg.github.io/wukong/">🌐 在线预览</a>
+</p>
+
 ---
 
 ## ✨ 核心特性
@@ -82,6 +86,8 @@ deactivate
 详见 [wukong/README.md](wukong/README.md)
 
 ### 落地页（Landing Page）
+
+- **在线访问**：<https://fangcircle2-jpg.github.io/wukong/>
 
 ```bash
 # 安装依赖
