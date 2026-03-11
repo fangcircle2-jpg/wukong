@@ -1,4 +1,4 @@
-﻿"""
+"""
 Tests for FileProvider.
 
 Run with: pytest tests/test_file_provider.py -v
@@ -111,20 +111,20 @@ class TestGetContext:
         item = items[0]
         assert item.metadata["total_lines"] == 1000
         assert item.metadata["lines"] == "1-500"
-        assert "截断" in item.content
+        assert "truncated" in item.content
         assert "line 1" in item.content
         assert "line 500" in item.content
     
     @pytest.mark.asyncio
     async def test_file_not_found(self, provider: FileProvider, temp_workspace: Path):
         """Test error when file doesn't exist."""
-        with pytest.raises(ContextProviderError, match="不存在"):
+        with pytest.raises(ContextProviderError, match="does not exist"):
             await provider.get_context("nonexistent.py", workspace_dir=str(temp_workspace))
     
     @pytest.mark.asyncio
     async def test_path_outside_workspace(self, provider: FileProvider, temp_workspace: Path):
         """Test error when path is outside workspace."""
-        with pytest.raises(ContextProviderError, match="工作区之外"):
+        with pytest.raises(ContextProviderError, match="outside workspace"):
             await provider.get_context("../../../etc/passwd", workspace_dir=str(temp_workspace))
     
     @pytest.mark.asyncio
@@ -285,7 +285,7 @@ class TestEdgeCases:
     @pytest.mark.asyncio
     async def test_directory_not_file(self, provider: FileProvider, temp_workspace: Path):
         """Test error when path is a directory."""
-        with pytest.raises(ContextProviderError, match="不是文件"):
+        with pytest.raises(ContextProviderError, match="Not a file"):
             await provider.get_context("src", workspace_dir=str(temp_workspace))
 
 

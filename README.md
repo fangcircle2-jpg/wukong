@@ -1,4 +1,4 @@
-# 悟空 Wukong
+# Wukong 悟空
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-0.1.0--alpha-blue" alt="Version" />
@@ -8,60 +8,61 @@
 </p>
 
 <p align="center">
-  专为开发者打造的高性能 AI Agent CLI 工具。<br/>
-  集成多模型适配、智能上下文注入与并行任务执行，让你的终端进化为全能开发助手。
+  High-performance AI Agent CLI for developers.<br/>
+  Multi-model support, smart context injection, and parallel task execution — your terminal, supercharged.
 </p>
 
 <p align="center">
-  <a href="https://fangcircle2-jpg.github.io/wukong/">🌐 在线预览</a>
+  <a href="https://fangcircle2-jpg.github.io/wukong/">🌐 Live Demo</a>
+  · <a href="README.zh-CN.md">中文</a>
 </p>
 
 ---
 
-## ✨ 核心特性
+## ✨ Features
 
-| 特性 | 说明 |
-|------|------|
-| **多模型适配** | 无缝切换 OpenAI、Claude、Gemini 及本地 Ollama 模型，不被任何供应商绑定 |
-| **智能上下文** | 通过 `@file`、`@url`、`@code` 快速注入项目背景，让 AI 真正理解你的代码库 |
-| **并行任务执行** | Batch 模式支持多任务并发分发与处理，大幅提升自动化效率 |
-| **ReAct 推理循环** | 具备自主推理能力，自动拆解复杂任务、调用工具并根据反馈调整策略 |
-| **安全沙箱** | 支持在 Docker 容器中执行敏感命令，保护宿主机系统安全 |
-| **MCP 协议支持** | 兼容 Model Context Protocol，可接入丰富的外部工具生态 |
-| **极客终端体验** | 基于 Rich 构建，支持 Markdown 渲染、语法高亮与实时流式输出 |
+| Feature | Description |
+|---------|-------------|
+| **Multi-Model** | Seamlessly switch between OpenAI, Claude, Gemini, and local Ollama — no vendor lock-in |
+| **Smart Context** | Inject project context via `@file`, `@url`, `@code` so AI truly understands your codebase |
+| **Parallel Tasks** | Batch mode for concurrent task distribution and processing |
+| **ReAct Loop** | Autonomous reasoning: decompose tasks, call tools, adapt strategy from feedback |
+| **Safe Sandbox** | Run sensitive commands in Docker containers to protect your host |
+| **MCP Support** | Model Context Protocol compatible — connect to the MCP tool ecosystem |
+| **Terminal UX** | Rich-based UI with Markdown, syntax highlighting, and streaming output |
 
-## 项目结构
+## Project Structure
 
 ```
-wukong/                      # Monorepo 根目录
+wukong/                      # Monorepo root
 ├── apps/
-│   └── landing/             # Next.js 产品落地页
-├── wukong/                  # Python CLI Agent 主工程
+│   └── landing/             # Next.js landing page
+├── wukong/                  # Python CLI Agent
 │   ├── src/wukong/
-│   │   ├── cli/             # Typer CLI 入口
+│   │   ├── cli/             # Typer CLI entry
 │   │   └── core/
-│   │       ├── agent/       # ReAct Agent 循环
-│   │       ├── config/      # Pydantic Settings 配置
-│   │       ├── context/     # 上下文 Provider 系统
-│   │       ├── llm/         # LLM 适配层 (LiteLLM)
-│   │       ├── mcp/         # MCP 协议集成
-│   │       ├── prompt/      # System Prompt 管理
-│   │       ├── sandbox/     # Docker 沙箱执行
-│   │       ├── session/     # 会话持久化
-│   │       └── tools/       # 内置工具集
+│   │       ├── agent/       # ReAct Agent loop
+│   │       ├── config/      # Pydantic Settings
+│   │       ├── context/     # Context Provider system
+│   │       ├── llm/         # LLM adapter layer (LiteLLM)
+│   │       ├── mcp/         # MCP protocol integration
+│   │       ├── prompt/      # System Prompt management
+│   │       ├── sandbox/     # Docker sandbox execution
+│   │       ├── session/     # Session persistence
+│   │       └── tools/       # Built-in tools
 │   └── tests/
-├── package.json             # pnpm workspace 配置
+├── package.json
 └── pnpm-workspace.yaml
 ```
 
-## 快速开始
+## Quick Start
 
-### CLI Agent（主工程）
+### CLI Agent
 
 ```bash
 cd wukong
 
-# 1. 创建并激活虚拟环境
+# 1. Create and activate virtual environment
 python -m venv .venv
 
 # Windows PowerShell:
@@ -69,108 +70,108 @@ python -m venv .venv
 # Linux / macOS:
 source .venv/bin/activate
 
-# 2. 安装依赖（含所有可选特性）
+# 2. Install dependencies (with all optional features)
 pip install -e ".[all]"
 
-# 3. 配置环境变量
+# 3. Configure environment variables
 cp .env.example .env
-# 编辑 .env，填入你的 API Key
+# Edit .env and add your API keys
 
-# 4. 启动
+# 4. Run
 wukong --help
 
-# 退出虚拟环境（使用完毕后）
+# Deactivate when done
 deactivate
 ```
 
-详见 [wukong/README.md](wukong/README.md)
+See [wukong/README.md](wukong/README.md) for details.
 
-### 落地页（Landing Page）
+### Landing Page
 
-- **在线访问**：<https://fangcircle2-jpg.github.io/wukong/>
+- **Live**: <https://fangcircle2-jpg.github.io/wukong/>
 
 ```bash
-# 安装依赖
+# Install dependencies
 pnpm install
 
-# 本地开发
+# Local development
 pnpm dev:landing
 
-# 生产构建
+# Production build
 pnpm build:landing
 ```
 
-## 环境变量配置
+## Environment Variables
 
-复制 `wukong/.env.example` 为 `wukong/.env` 并填写以下关键配置：
+Copy `wukong/.env.example` to `wukong/.env` and configure:
 
 ```bash
-# 选择 LLM provider
+# LLM provider
 WUKONG_LLM_PROVIDER=anthropic          # openai | anthropic | google | local
 WUKONG_LLM_MODEL=claude-sonnet-4-20250514
 
-# 填入对应 provider 的 API Key
+# API key for your provider
 WUKONG_LLM_ANTHROPIC_API_KEY=sk-ant-...
 
-# 使用 OpenAI 兼容接口（智谱、Moonshot、DeepSeek 等）
+# OpenAI-compatible APIs (Zhipu, Moonshot, DeepSeek, etc.)
 # WUKONG_LLM_PROVIDER=openai
 # WUKONG_LLM_OPENAI_API_KEY=your-key
 # WUKONG_LLM_OPENAI_BASE_URL=https://open.bigmodel.cn/api/paas/v4/
 ```
 
-完整配置说明见 [wukong/.env.example](wukong/.env.example)。
+Full config: [wukong/.env.example](wukong/.env.example).
 
-## 常用命令
+## Common Commands
 
 ```bash
-wukong                          # 交互式对话
-wukong -q "帮我写个快速排序"     # 单次查询
-wukong ls                       # 列出所有会话
-wukong resume                   # 恢复上一次会话
-wukong fork                     # 从当前会话创建分支
-wukong session                  # 会话管理
+wukong                          # Interactive chat
+wukong -q "Implement quicksort"  # Single query
+wukong ls                       # List sessions
+wukong resume                   # Resume last session
+wukong fork                     # Fork current session
+wukong session                  # Session management
 ```
 
-## 开发指南
+## Development
 
 ```bash
 cd wukong
 
-# 安装开发依赖
+# Install dev dependencies
 pip install -e ".[dev]"
 
-# 运行测试
+# Run tests
 pytest
 
-# 代码检查
+# Lint
 ruff check src/
 ruff format src/
 
-# 类型检查
+# Type check
 mypy src/
 ```
 
-## 技术栈
+## Tech Stack
 
-| 子项目 | 技术 |
-|--------|------|
+| Subproject | Stack |
+|------------|-------|
 | `wukong/` | Python 3.11+, Typer, Rich, Pydantic v2, LiteLLM, MCP |
 | `apps/landing/` | Next.js 15, React 19, Tailwind CSS v4, Framer Motion |
 
-## 贡献指南
+## Contributing
 
-欢迎提交 Issue 和 Pull Request！
+Issues and PRs welcome!
 
-1. Fork 本仓库
-2. 创建特性分支：`git checkout -b feature/your-feature`
-3. 提交改动：`git commit -m 'feat: add your feature'`
-4. 推送分支：`git push origin feature/your-feature`
-5. 创建 Pull Request
+1. Fork the repo
+2. Create a branch: `git checkout -b feature/your-feature`
+3. Commit: `git commit -m 'feat: add your feature'`
+4. Push: `git push origin feature/your-feature`
+5. Open a Pull Request
 
-请确保：
-- 新功能附带对应测试
-- 代码通过 `ruff check` 和 `mypy` 检查
-- Commit message 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 规范
+Please ensure:
+- New features include tests
+- Code passes `ruff check` and `mypy`
+- Commits follow [Conventional Commits](https://www.conventionalcommits.org/)
 
 ## License
 

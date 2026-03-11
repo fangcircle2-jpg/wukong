@@ -5,8 +5,8 @@ from ..schema import ChatMessage, LLMResponse, ToolDefinition, ToolCall, Functio
 
 class MockLLM(BaseLLM):
     """
-    模拟 LLM 适配器。
-    用于在没有 API Key 或网络环境的情况下测试系统流程。
+    Mock LLM adapter.
+    Used for testing system flow without API keys or network.
     """
     
     async def chat(
@@ -14,23 +14,23 @@ class MockLLM(BaseLLM):
         messages: List[ChatMessage], 
         tools: Optional[List[ToolDefinition]] = None
     ) -> LLMResponse:
-        """模拟非流式返回"""
+        """Mock non-streaming response."""
         last_msg = messages[-1].content.lower() if messages[-1].content else ""
         
-        # 模拟工具调用逻辑
-        if "天气" in last_msg and tools:
+        # Mock tool call logic
+        if "weather" in last_msg and tools:
             tool_calls = [
                 ToolCall(
                     id="mock_call_123",
                     type="function",
-                    function=FunctionCall(name="get_weather", arguments='{"location": "北京"}')
+                    function=FunctionCall(name="get_weather", arguments='{"location": "Beijing"}')
                 )
             ]
             return LLMResponse(content=None, tool_calls=tool_calls)
         
-        # 模拟普通文本返回
+        # Mock plain text response
         return LLMResponse(
-            content=f"这是一个模拟回复。你刚才说的是：'{last_msg}'",
+            content=f"This is a mock response. You said: '{last_msg}'",
             usage={"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30}
         )
 
@@ -39,10 +39,10 @@ class MockLLM(BaseLLM):
         messages: List[ChatMessage], 
         tools: Optional[List[ToolDefinition]] = None
     ) -> AsyncIterator[LLMResponse]:
-        """模拟流式返回"""
-        full_text = f"这是模拟的流式回复。很高兴为您服务！"
+        """Mock streaming response."""
+        full_text = "This is a mock streaming response. Happy to help!"
         
         for char in full_text:
-            await asyncio.sleep(0.01)  # 模拟一点网络延迟
+            await asyncio.sleep(0.01)  # Simulate network delay
             yield LLMResponse(content=char)
 

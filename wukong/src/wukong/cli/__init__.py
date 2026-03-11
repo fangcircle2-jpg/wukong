@@ -1,5 +1,5 @@
 """
-CLI module - Command line interface for Wukong (悟空).
+CLI module - Command line interface for Wukong.
 
 Usage:
     wukong              # Enter interactive session
@@ -213,7 +213,7 @@ def main(
     ),
 ) -> None:
     """
-    悟空 Wukong - AI Coding Assistant.
+    Wukong - AI Coding Assistant.
 
     Run without arguments to enter interactive mode.
     Use -q/--query for single query mode.
@@ -303,8 +303,8 @@ async def _handle_single_query_async(query: str) -> None:
     except Exception as e:
         error_str = str(e).lower()
         if "ssl" in error_str or "decryption" in error_str or "connection" in error_str:
-            console.error("网络连接错误：与 LLM 服务的连接中断")
-            console.warning("提示：这可能是网络不稳定导致的，请检查网络连接后重试")
+            console.error("Network connection error: connection to LLM service interrupted")
+            console.warning("Tip: This may be caused by network instability. Please check your connection and retry.")
         else:
             console.error(f"Error: {e}")
     
@@ -319,7 +319,7 @@ def _enter_interactive_session() -> None:
     from wukong.core.session import SessionManager
     
     console.print()
-    console.print("[bold cyan]悟空 Wukong[/bold cyan] - AI Coding Assistant")
+    console.print("[bold cyan]Wukong[/bold cyan] - AI Coding Assistant")
     console.print(f"[dim]Version {__version__}[/dim]")
     console.print()
     
@@ -478,8 +478,8 @@ async def _process_user_input(
     except Exception as e:
         error_str = str(e).lower()
         if "ssl" in error_str or "decryption" in error_str or "connection" in error_str:
-            console.error("网络连接错误：与 LLM 服务的连接中断")
-            console.warning("提示：这可能是网络不稳定导致的，请检查网络连接后重试")
+            console.error("Network connection error: connection to LLM service interrupted")
+            console.warning("Tip: This may be caused by network instability. Please check your connection and retry.")
         else:
             console.error(f"Agent error: {e}")
     console.print()

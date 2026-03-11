@@ -1,4 +1,4 @@
-﻿"""
+"""
 File Context Provider.
 
 Reads local file contents and provides file selection features.
@@ -48,8 +48,8 @@ class FileProvider(ContextProvider):
     """
     
     id = "file"
-    name = "文件"
-    description = "读取本地文件内容"
+    name = "File"
+    description = "Read local file contents"
     
     # Configuration constants (internal, not exposed in Config)
     MAX_LINES = 500
@@ -255,21 +255,21 @@ class FileProvider(ContextProvider):
             abs_path.relative_to(workspace)
         except ValueError:
             raise ContextProviderError(
-                f"路径在工作区之外: {file_path}",
+                f"Path is outside workspace: {file_path}",
                 provider_id=self.id,
             )
         
         # Check existence
         if not abs_path.exists():
             raise ContextProviderError(
-                f"文件不存在: {file_path}",
+                f"File does not exist: {file_path}",
                 provider_id=self.id,
             )
         
         # Check it's a file
         if not abs_path.is_file():
             raise ContextProviderError(
-                f"不是文件: {file_path}",
+                f"Not a file: {file_path}",
                 provider_id=self.id,
             )
         
@@ -294,7 +294,7 @@ class FileProvider(ContextProvider):
                 lines = f.readlines()
         except OSError as e:
             raise ContextProviderError(
-                f"无法读取文件: {e}",
+                f"Cannot read file: {e}",
                 provider_id=self.id,
             )
         
@@ -316,7 +316,7 @@ class FileProvider(ContextProvider):
         
         # Add truncation notice if needed
         if end < total_lines and line_range is None:
-            content += f"\n... (截断：共 {total_lines} 行，显示前 {end} 行)"
+            content += f"\n... (truncated: {total_lines} total lines, showing first {end})"
         
         return content, start, end, total_lines
     

@@ -20,8 +20,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "悟空 Wukong | 高性能 AI Agent CLI 工具",
-  description: "专为开发者设计的终端 AI 助手，支持多模型、上下文管理和自动化代码操作。",
+  title: "Wukong | High-Performance AI Agent CLI",
+  description: "Terminal AI assistant for developers. Multi-model support, context management, and automated code operations.",
 };
 
 export default function RootLayout({

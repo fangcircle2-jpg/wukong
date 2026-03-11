@@ -1,4 +1,4 @@
-﻿"""
+"""
 Tests for AgentLoop tool system integration.
 
 Tests the tool execution flow in AgentLoop when LLM requests tool calls.
@@ -91,7 +91,7 @@ def create_mock_llm_no_tools():
     
     async def mock_stream(*args, **kwargs):
         chunk = MagicMock()
-        chunk.content = "这是 LLM 的回复"
+        chunk.content = "This is the LLM response"
         chunk.reasoning_content = None
         chunk.tool_calls = None
         yield chunk
@@ -127,7 +127,7 @@ def create_mock_llm_with_tool_call(tool_name: str, arguments: dict):
         else:
             # Second call: return final response
             chunk = MagicMock()
-            chunk.content = "工具执行完成，这是最终回复"
+            chunk.content = "Tool execution complete, this is the final response"
             chunk.reasoning_content = None
             chunk.tool_calls = None
             yield chunk
@@ -243,7 +243,7 @@ class TestToolExecution:
         
         # Run and collect responses
         responses = []
-        async for chunk in loop.run("读取 test.txt 文件"):
+        async for chunk in loop.run("Read the test.txt file"):
             if chunk.content:
                 responses.append(chunk.content)
         
@@ -280,7 +280,7 @@ class TestToolExecution:
         
         # Run and collect responses
         responses = []
-        async for chunk in loop.run("执行不存在的工具"):
+        async for chunk in loop.run("Execute nonexistent tool"):
             if chunk.content:
                 responses.append(chunk.content)
         
@@ -317,7 +317,7 @@ class TestToolExecution:
                 yield chunk
             else:
                 chunk = MagicMock()
-                chunk.content = "处理完成"
+                chunk.content = "Done"
                 chunk.reasoning_content = None
                 chunk.tool_calls = None
                 yield chunk
@@ -334,7 +334,7 @@ class TestToolExecution:
         
         # Should not crash
         responses = []
-        async for chunk in loop.run("测试无效参数"):
+        async for chunk in loop.run("Test invalid args"):
             if chunk.content:
                 responses.append(chunk.content)
         
@@ -456,7 +456,7 @@ class TestHistoryUpdates:
         )
         
         # Run
-        async for _ in loop.run("读取文件"):
+        async for _ in loop.run("Read file"):
             pass
         
         # Check history
@@ -511,7 +511,7 @@ class TestNoToolCalls:
                 responses.append(chunk.content)
         
         assert len(responses) == 1
-        assert responses[0] == "这是 LLM 的回复"
+        assert responses[0] == "This is the LLM response"
         
         # Check history - should have user and assistant messages
         messages = loop.chat_history.get_messages()

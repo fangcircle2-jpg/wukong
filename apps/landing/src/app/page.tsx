@@ -52,7 +52,7 @@ const TerminalWindow = () => {
   const [lines, setLines] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(true);
   
-  // 模拟一个实际的代码重构场景
+  // Simulate a code refactoring scenario
   const fullText = [
     { text: "wukong refactor @src/auth.ts", type: "command", delay: 800 },
     { text: "Initializing Wukong Agent...", type: "system", delay: 600 },
@@ -86,7 +86,7 @@ const TerminalWindow = () => {
       }
     };
 
-    // 初始延迟后开始打字
+    // Start typing after initial delay
     timeoutId = setTimeout(typeNextLine, 1000);
 
     return () => clearTimeout(timeoutId);

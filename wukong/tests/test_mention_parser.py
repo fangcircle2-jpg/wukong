@@ -1,4 +1,4 @@
-﻿"""
+"""
 Tests for MentionParser.
 
 Run with: pytest tests/test_mention_parser.py -v
@@ -33,35 +33,35 @@ class TestBasicParsing:
     
     def test_mention_with_text_before(self, parser: MentionParser):
         """Test mention with text before it."""
-        result = parser.parse("看看 @file src/main.py")
+        result = parser.parse("check @file src/main.py")
         
         assert len(result.mentions) == 1
         assert result.mentions[0].query == "src/main.py"
-        assert result.clean_text == "看看"
+        assert result.clean_text == "check"
     
     def test_mention_with_text_after(self, parser: MentionParser):
         """Test mention with text after it."""
-        result = parser.parse("@file src/main.py 这个文件")
+        result = parser.parse("@file src/main.py this file")
         
         assert len(result.mentions) == 1
-        assert result.clean_text == "这个文件"
+        assert result.clean_text == "this file"
     
     def test_mention_with_text_around(self, parser: MentionParser):
         """Test mention surrounded by text."""
-        result = parser.parse("帮我看看 @file src/main.py 的问题")
+        result = parser.parse("help me check @file src/main.py issues")
         
         assert len(result.mentions) == 1
         assert result.mentions[0].query == "src/main.py"
-        assert result.clean_text == "帮我看看 的问题"
+        assert result.clean_text == "help me check issues"
     
     def test_multiple_mentions(self, parser: MentionParser):
         """Test multiple mentions."""
-        result = parser.parse("@file a.py @file b.py 比较一下")
+        result = parser.parse("@file a.py @file b.py compare them")
         
         assert len(result.mentions) == 2
         assert result.mentions[0].query == "a.py"
         assert result.mentions[1].query == "b.py"
-        assert result.clean_text == "比较一下"
+        assert result.clean_text == "compare them"
     
     def test_different_providers(self, parser: MentionParser):
         """Test mentions with different providers."""
@@ -95,11 +95,11 @@ class TestQuotedPaths:
     
     def test_quoted_with_text(self, parser: MentionParser):
         """Test quoted path with surrounding text."""
-        result = parser.parse('看看 @file "my docs/readme.md" 的内容')
+        result = parser.parse('check @file "my docs/readme.md" content')
         
         assert len(result.mentions) == 1
         assert result.mentions[0].query == "my docs/readme.md"
-        assert result.clean_text == "看看 的内容"
+        assert result.clean_text == "check content"
 
 
 # ========================================
@@ -118,10 +118,10 @@ class TestEdgeCases:
     
     def test_no_mentions(self, parser: MentionParser):
         """Test text without mentions."""
-        result = parser.parse("普通文本，没有提及")
+        result = parser.parse("plain text, no mentions")
         
         assert len(result.mentions) == 0
-        assert result.clean_text == "普通文本，没有提及"
+        assert result.clean_text == "plain text, no mentions"
     
     def test_mention_without_query(self, parser: MentionParser):
         """Test mention without query argument."""
@@ -133,17 +133,17 @@ class TestEdgeCases:
     
     def test_mention_at_start(self, parser: MentionParser):
         """Test mention at start of text."""
-        result = parser.parse("@file test.py 请分析")
+        result = parser.parse("@file test.py please analyze")
         
         assert len(result.mentions) == 1
-        assert result.clean_text == "请分析"
+        assert result.clean_text == "please analyze"
     
     def test_mention_at_end(self, parser: MentionParser):
         """Test mention at end of text."""
-        result = parser.parse("请看 @file test.py")
+        result = parser.parse("please check @file test.py")
         
         assert len(result.mentions) == 1
-        assert result.clean_text == "请看"
+        assert result.clean_text == "please check"
     
     def test_consecutive_mentions(self, parser: MentionParser):
         """Test consecutive mentions without text between."""
@@ -157,7 +157,7 @@ class TestEdgeCases:
         """Test that email addresses are not parsed as mentions."""
         # Note: Current implementation will parse user@example.com
         # This test documents current behavior
-        result = parser.parse("联系 user@example.com")
+        result = parser.parse("contact user@example.com")
         
         # Current behavior: @example is parsed as mention
         # This is a known limitation
@@ -195,10 +195,10 @@ class TestPositionTracking:
     
     def test_position_with_prefix(self, parser: MentionParser):
         """Test position with text before mention."""
-        result = parser.parse("看看 @file test.py")
+        result = parser.parse("see @file test.py")
         
         mention = result.mentions[0]
-        assert mention.start == 3  # After "看看 "
+        assert mention.start == 4  # After "see "
     
     def test_raw_includes_full_mention(self, parser: MentionParser):
         """Test that raw field includes full mention text."""
@@ -226,7 +226,7 @@ class TestHelperMethods:
     
     def test_has_mentions_false(self, parser: MentionParser):
         """Test has_mentions returns False when no mentions."""
-        assert parser.has_mentions("普通文本") is False
+        assert parser.has_mentions("plain text") is False
 
 
 # ========================================
@@ -244,9 +244,9 @@ class TestCleanText:
     
     def test_clean_text_normalizes_spaces(self, parser: MentionParser):
         """Test that multiple spaces are normalized."""
-        result = parser.parse("看看  @file test.py  的问题")
+        result = parser.parse("check  @file test.py  issues")
         
-        assert result.clean_text == "看看 的问题"
+        assert result.clean_text == "check issues"
     
     def test_clean_text_only_mentions(self, parser: MentionParser):
         """Test clean_text when input is only mentions."""

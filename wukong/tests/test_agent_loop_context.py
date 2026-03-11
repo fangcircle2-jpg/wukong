@@ -1,4 +1,4 @@
-﻿"""
+"""
 Tests for AgentLoop context integration.
 
 Tests the context resolution in AgentLoop when CLI passes mentions.
@@ -53,7 +53,7 @@ def mock_llm():
     async def mock_stream(*args, **kwargs):
         # Yield a simple response
         chunk = MagicMock()
-        chunk.content = "这是 LLM 的回复"
+        chunk.content = "This is the LLM response"
         chunk.reasoning_content = None
         chunk.tool_calls = None
         yield chunk
@@ -245,11 +245,11 @@ class TestRunWithContext:
         
         # Collect response
         response = ""
-        async for chunk in loop.run("解释这个文件", mentions=mentions):
+        async for chunk in loop.run("Explain this file", mentions=mentions):
             if chunk.content:
                 response += chunk.content
         
-        assert response == "这是 LLM 的回复"
+        assert response == "This is the LLM response"
         
         # Check that context was added to history
         messages = loop.chat_history.get_messages()
@@ -258,7 +258,7 @@ class TestRunWithContext:
         assert len(user_msg.context_items) == 1
         assert user_msg.context_items[0].provider == "file"
         # Clean text should be stored
-        assert user_msg.message.content == "解释这个文件"
+        assert user_msg.message.content == "Explain this file"
     
     @pytest.mark.asyncio
     async def test_run_without_mentions(
@@ -277,18 +277,18 @@ class TestRunWithContext:
         )
         
         response = ""
-        async for chunk in loop.run("你好"):
+        async for chunk in loop.run("Hello"):
             if chunk.content:
                 response += chunk.content
         
-        assert response == "这是 LLM 的回复"
+        assert response == "This is the LLM response"
         
         # Check no context was added
         messages = loop.chat_history.get_messages()
         user_msg = messages[0]
         
         assert len(user_msg.context_items) == 0
-        assert user_msg.message.content == "你好"
+        assert user_msg.message.content == "Hello"
     
     @pytest.mark.asyncio
     async def test_run_with_none_mentions(
@@ -307,11 +307,11 @@ class TestRunWithContext:
         )
         
         response = ""
-        async for chunk in loop.run("你好", mentions=None):
+        async for chunk in loop.run("Hello", mentions=None):
             if chunk.content:
                 response += chunk.content
         
-        assert response == "这是 LLM 的回复"
+        assert response == "This is the LLM response"
         
         # Check no context was added
         messages = loop.chat_history.get_messages()
