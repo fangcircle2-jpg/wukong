@@ -1,0 +1,1 @@
+Write content to a file at the specified path. Use this tool to create new files or overwrite existing ones. The tool will create parent directories if they don't exist. Be careful when overwriting files - the original content will be lost.

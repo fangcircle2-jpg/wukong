@@ -1,0 +1,1 @@
+Lists files and directories in a given path. The path parameter can be relative to workspace or absolute; omit it to use the current workspace directory. Supports recursive listing with max_depth control. You should generally prefer the Glob and Grep tools, if you know which directories to search.

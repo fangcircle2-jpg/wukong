@@ -1,0 +1,191 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wukong"
+version = "0.1.0"
+description = "A powerful CLI agent tool with multi-LLM support, context management, and code operations"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+keywords = ["cli", "agent", "llm", "ai", "coding-assistant"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    # CLI Framework (core)
+    "typer>=0.12.0",
+    "rich>=13.7.0",
+    
+    # Data Validation (core)
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.0",
+    
+    # Configuration (core)
+    "python-dotenv>=1.0.0",
+    
+    # Context Provider (core)
+    "rapidfuzz>=3.6.0",    # Fuzzy string matching
+    "pathspec>=0.12.0",    # .gitignore pattern matching
+]
+
+[project.optional-dependencies]
+# LLM providers - add when needed
+llm = [
+    "litellm>=1.40.0",
+    "openai>=1.30.0",
+    "anthropic>=0.28.0",
+    "google-generativeai>=0.5.0",
+    "httpx>=0.27.0",
+    "anyio>=4.3.0",
+]
+
+# MCP protocol support
+mcp = [
+    "mcp>=1.0.0",
+]
+
+# Advanced terminal UI
+ui = [
+    "prompt-toolkit>=3.0.43",
+]
+
+# Code analysis tools
+code = [
+    "tree-sitter>=0.21.0",
+    "tiktoken>=0.7.0",
+]
+
+# Async file operations
+async = [
+    "aiofiles>=23.2.0",
+]
+
+# Sandbox execution
+sandbox = [
+    "docker>=7.0.0",
+]
+
+# Development tools
+dev = [
+    "pytest>=8.2.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+    "pre-commit>=3.7.0",
+]
+
+# All features
+all = [
+    "wukong[llm,mcp,ui,code,async,sandbox]",
+]
+
+[project.scripts]
+wukong = "wukong.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/wukong"
+Documentation = "https://github.com/yourusername/wukong#readme"
+Repository = "https://github.com/yourusername/wukong"
+Issues = "https://github.com/yourusername/wukong/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wukong"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+]
+
+# ============================================
+# Ruff Configuration (Linter & Formatter)
+# ============================================
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ARG",    # flake8-unused-arguments
+    "SIM",    # flake8-simplify
+]
+ignore = [
+    "E501",   # line too long (handled by formatter)
+    "B008",   # do not perform function calls in argument defaults
+    "C901",   # too complex
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["wukong"]
+
+# ============================================
+# Pytest Configuration
+# ============================================
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+]
+
+# ============================================
+# MyPy Configuration
+# ============================================
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+plugins = ["pydantic.mypy"]
+
+# Note: Add type stubs for optional dependencies when installed
+# [[tool.mypy.overrides]]
+# module = ["litellm.*", "tiktoken.*", "tree_sitter.*", "mcp.*"]
+# ignore_missing_imports = true
+
+# ============================================
+# Coverage Configuration
+# ============================================
+[tool.coverage.run]
+source = ["src/wukong"]
+branch = true
+omit = ["*/tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]
+

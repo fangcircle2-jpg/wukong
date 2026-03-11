@@ -1,0 +1,72 @@
+Launch a subagent to execute an independent task autonomously.
+
+The Task tool allows you to delegate complex, multi-step tasks to specialized subagents. Each subagent runs in its own session and can use a configured set of tools.
+
+## Available Subagents
+
+- **general**: A general-purpose subagent with full tool access (read/write files, execute commands, batch parallel operations). Use for complex multi-step tasks that may require file modifications.
+- **explore**: A fast, read-only subagent for exploring codebases. Cannot modify files but can batch parallel reads/searches for efficiency. Use for quickly finding files, searching code, or answering questions about the codebase.
+
+## When to Use This Tool
+
+Use the Task tool when:
+1. The task is complex and requires multiple steps
+2. You want to parallelize work across multiple subagents
+3. You need to explore different parts of the codebase simultaneously
+4. The task is independent and doesn't require interactive user input
+
+Do NOT use the Task tool when:
+1. The task is simple and can be done with a single tool call
+2. You need to ask the user questions during execution
+3. The result needs immediate user feedback
+
+## Parameters
+
+- `agent` (required): Subagent name to invoke ("general" or "explore")
+- `prompt` (required): Task description for the subagent
+- `model` (optional): Override the model for this subagent
+- `timeout` (optional): Maximum execution time in milliseconds (default: 300000 = 5 minutes)
+
+## Output Format
+
+The task tool returns:
+1. `<task_metadata>` block containing:
+   - `session_id`: Child session ID for debugging/navigation
+   - `summary`: List of all tool calls made by the subagent
+2. The subagent's final output
+
+**Important**: The subagent's result is NOT shown directly to the user. You MUST summarize and present the results to the user.
+
+## Examples
+
+### Explore codebase
+```
+agent: "explore"
+prompt: "Find all files that implement authentication and summarize the auth flow"
+```
+
+### Complex refactoring
+```
+agent: "general"
+prompt: "Refactor the User class to use dependency injection for the database connection"
+```
+
+### Parallel exploration
+Launch multiple explore tasks simultaneously to investigate different aspects:
+```
+# Task 1
+agent: "explore"
+prompt: "How does the API authentication work?"
+
+# Task 2
+agent: "explore"
+prompt: "What database models exist and how are they related?"
+```
+
+## Best Practices
+
+1. **Be specific**: Give clear, detailed task descriptions
+2. **Choose the right agent**: Use "explore" for read-only tasks, "general" when modifications are needed
+3. **Summarize results**: Always summarize the subagent's findings for the user
+4. **Handle failures**: Check if the task completed successfully and handle partial results
+5. **Use parallelism**: Launch multiple independent tasks in parallel for efficiency

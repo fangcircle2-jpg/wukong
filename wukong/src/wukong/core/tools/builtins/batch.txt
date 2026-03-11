@@ -1,0 +1,27 @@
+Execute multiple tools in parallel.
+
+This is a meta-tool that runs multiple tool calls concurrently, improving efficiency for independent operations.
+
+Usage:
+- Provide an array of tool calls, each with "name" and "arguments"
+- Tools execute in parallel (up to 10 concurrent)
+- Each tool runs independently - one failure doesn't affect others
+
+Example:
+```json
+{
+  "tool_calls": [
+    {"name": "read_file", "arguments": {"path": "src/main.py"}},
+    {"name": "read_file", "arguments": {"path": "src/utils.py"}},
+    {"name": "grep", "arguments": {"pattern": "TODO", "path": "."}}
+  ]
+}
+```
+
+Limitations:
+- Maximum 10 concurrent tool calls
+- Cannot call "batch" recursively (no nested batch)
+- Each tool call is independent (no data sharing between them)
+
+Output:
+Returns full results including each tool's actual output. No need to call the same tools again after batch execution.

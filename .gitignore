@@ -1,0 +1,136 @@
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ============================================
+# Virtual Environments
+# ============================================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ============================================
+# IDE / Editor
+# ============================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ============================================
+# Cursor IDE & Spec plugins
+# ============================================
+# Plans/drafts are internal process documents, not for publishing
+.cursor/plans/
+# Spec Story plugin history (internal AI conversation history)
+.specstory/
+.spec-workflow/
+# Keep .cursor/rules/ and .cursor/commands/ (useful for contributors)
+
+# ============================================
+# Wukong Runtime Data
+# ============================================
+# Session storage and runtime data (contains conversation history)
+.wukong/
+**/.wukong/
+
+# ============================================
+# Testing
+# ============================================
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# ============================================
+# Type Checking
+# ============================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# ============================================
+# Documentation
+# ============================================
+docs/_build/
+site/
+
+# ============================================
+# Project Specific
+# ============================================
+# Environment variables (contains secrets!)
+.env
+.env.local
+.env.*.local
+
+# Session files
+sessions/
+*.session.json
+
+# Logs
+logs/
+*.log
+
+# MCP configuration (may contain sensitive data)
+mcp.json
+
+# Sandbox temporary files
+.sandbox/
+
+# ============================================
+# Node.js / pnpm
+# ============================================
+node_modules/
+.next/
+.nuxt/
+out/
+.turbo/
+# package-lock.json is not needed when using pnpm
+package-lock.json
+
+# ============================================
+# OS Generated
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
