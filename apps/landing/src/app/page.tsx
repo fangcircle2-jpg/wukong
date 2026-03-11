@@ -36,10 +36,10 @@ const Navbar = () => {
           <a href="#docs" onClick={handleNotImplemented} className="hover:text-foreground transition-colors tracking-widest">文档</a>
         </div>
         <div className="flex items-center gap-6">
-          <a href="https://github.com/yknlwca/wukong" target="_blank" rel="noreferrer" className="text-foreground hover:text-primary transition-colors">
+          <a href="https://github.com/fangcircle2-jpg/wukong" target="_blank" rel="noreferrer" className="text-foreground hover:text-primary transition-colors">
             <Github size={22} strokeWidth={1.5} />
           </a>
-          <a href="https://github.com/yknlwca/wukong#readme" className="border border-foreground text-foreground px-5 py-2.5 text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-300">
+          <a href="https://github.com/fangcircle2-jpg/wukong#readme" className="border border-foreground text-foreground px-5 py-2.5 text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-300">
             立即开始
           </a>
         </div>
@@ -198,10 +198,10 @@ export default function LandingPage() {
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a href="https://github.com/yknlwca/wukong#快速开始" className="w-full sm:w-auto bg-foreground text-background px-10 py-4 text-sm font-bold tracking-widest hover:bg-primary transition-colors flex items-center justify-center gap-3">
+              <a href="https://github.com/fangcircle2-jpg/wukong#快速开始" className="w-full sm:w-auto bg-foreground text-background px-10 py-4 text-sm font-bold tracking-widest hover:bg-primary transition-colors flex items-center justify-center gap-3">
                 立即安装 <ArrowRight size={16} />
               </a>
-              <a href="https://github.com/yknlwca/wukong" target="_blank" rel="noreferrer" className="w-full sm:w-auto border border-border px-10 py-4 text-sm font-bold tracking-widest hover:bg-surface transition-colors flex items-center justify-center gap-3">
+              <a href="https://github.com/fangcircle2-jpg/wukong" target="_blank" rel="noreferrer" className="w-full sm:w-auto border border-border px-10 py-4 text-sm font-bold tracking-widest hover:bg-surface transition-colors flex items-center justify-center gap-3">
                 查看源码
               </a>
             </div>
@@ -290,9 +290,9 @@ export default function LandingPage() {
           </div>
           
           <div className="flex items-center gap-8 text-sm font-medium tracking-widest uppercase">
-            <a href="https://github.com/yknlwca/wukong" target="_blank" rel="noreferrer" className="text-secondary hover:text-foreground transition-colors">GitHub</a>
+            <a href="https://github.com/fangcircle2-jpg/wukong" target="_blank" rel="noreferrer" className="text-secondary hover:text-foreground transition-colors">GitHub</a>
             <a href="#docs" onClick={(e) => { e.preventDefault(); alert("文档正在编写中，敬请期待！"); }} className="text-secondary hover:text-foreground transition-colors">文档</a>
-            <a href="https://github.com/yknlwca/wukong/issues" target="_blank" rel="noreferrer" className="text-secondary hover:text-foreground transition-colors">反馈</a>
+            <a href="https://github.com/fangcircle2-jpg/wukong/issues" target="_blank" rel="noreferrer" className="text-secondary hover:text-foreground transition-colors">反馈</a>
           </div>
         </div>
       </footer>
