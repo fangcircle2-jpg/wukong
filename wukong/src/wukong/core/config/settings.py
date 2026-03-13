@@ -195,6 +195,54 @@ class MCPAppSettings(BaseSettings):
     )
 
 
+class SandboxSettings(BaseSettings):
+    """Sandbox execution settings."""
+
+    model_config = SettingsConfigDict(
+        env_prefix="wukong_SANDBOX_",
+        extra="ignore",
+    )
+
+    enabled: bool = Field(
+        default=True,
+        description="Enable sandbox execution for risky commands",
+    )
+    backend: Literal["auto", "docker", "local"] = Field(
+        default="auto",
+        description="Sandbox backend: auto (prefer docker), docker-only, or local-only",
+    )
+    docker_image: str = Field(
+        default="python:3.11-slim",
+        description="Docker image for sandbox containers",
+    )
+    network_enabled: bool = Field(
+        default=False,
+        description="Allow network access inside sandbox",
+    )
+    memory_limit: str = Field(
+        default="512m",
+        description="Memory limit (e.g. 512m, 1g)",
+    )
+    cpu_limit: float = Field(
+        default=1.0,
+        ge=0.1,
+        description="CPU core limit",
+    )
+    timeout: int = Field(
+        default=120,
+        gt=0,
+        description="Default execution timeout in seconds",
+    )
+    auto_sandbox_dangerous: bool = Field(
+        default=True,
+        description="Automatically sandbox dangerous commands",
+    )
+    auto_sandbox_moderate: bool = Field(
+        default=False,
+        description="Automatically sandbox moderate-risk commands",
+    )
+
+
 class Settings(BaseSettings):
     """Main settings class that combines all settings."""
 
@@ -210,6 +258,7 @@ class Settings(BaseSettings):
     permission: PermissionSettings = Field(default_factory=PermissionSettings)
     context: ContextSettings = Field(default_factory=ContextSettings)
     mcp: MCPAppSettings = Field(default_factory=MCPAppSettings)
+    sandbox: SandboxSettings = Field(default_factory=SandboxSettings)
 
     @classmethod
     def load(cls) -> "Settings":

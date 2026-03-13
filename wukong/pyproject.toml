@@ -39,6 +39,9 @@ dependencies = [
     # Context Provider (core)
     "rapidfuzz>=3.6.0",    # Fuzzy string matching
     "pathspec>=0.12.0",    # .gitignore pattern matching
+
+    # Agent config (YAML)
+    "pyyaml>=6.0",
 ]
 
 [project.optional-dependencies]
@@ -154,6 +157,7 @@ addopts = [
 markers = [
     "slow: marks tests as slow",
     "integration: marks tests as integration tests",
+    "docker: marks tests that require Docker daemon",
 ]
 
 # ============================================
